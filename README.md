@@ -36,7 +36,17 @@ Download and install [Ollama](https://ollama.com/) on your machine. This will al
    ```
 
 ## Step 3: Run the Ollama Server
-1. **Start the Server**:
+1. **Switch to the Ollama model of your choice**:
+   Change the model in this part of the Ollama_Server.py:
+   ```python
+   result = subprocess.run(
+      ["ollama", "run", "llama3.2:1b"],
+      input=prompt,
+      capture_output=True,
+      text=True  # Ensures output is decoded to a string automatically
+   )
+   ```
+2. **Start the Server**:
    From the Server folder, Run the following command to start the server:
    ```bash
    python Ollama_Server.py
