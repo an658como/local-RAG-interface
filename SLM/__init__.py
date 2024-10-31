@@ -1,1 +1,1 @@
-from .ollama import *
+from .LocalLLM import *
