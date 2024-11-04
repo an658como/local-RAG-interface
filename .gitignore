@@ -1,0 +1,4 @@
+db/
+.venv/
+SLM/__pycache__/
+.DS_Store/
