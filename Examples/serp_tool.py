@@ -1,13 +1,13 @@
-import SLM
+import slm
 import os
 # importing LangChain modules
 from langchain.llms import OpenAI
 from langchain.agents import AgentType, initialize_agent, load_tools
 
-os.environ["SERPAPI_API_KEY"] = "??"
+os.environ["SERPAPI_API_KEY"] = "YOUR_API_KEY"
 
 # Initialize LocalLLM with the specified endpoint URL
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 # loading tools
 tools = load_tools(["serpapi", 
@@ -20,4 +20,4 @@ agent = initialize_agent(tools,
                         verbose=True)
 
 # user's query
-print(agent.run("What is the current population of the world, and calculate the percentage change compared to the population five years ago"))
+print(agent.run("who is Mehran Dadsetan?"))

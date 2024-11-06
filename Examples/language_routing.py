@@ -4,7 +4,7 @@
 3.Create the router chain
 '''
 # importing LangChain modules
-import SLM
+import slm
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.prompts import ChatPromptTemplate
@@ -12,7 +12,7 @@ from langchain.chains.router import MultiPromptChain
 from langchain.chains.router.llm_router import LLMRouterChain,RouterOutputParser
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
 
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 # Defining prompt templates for the destination chains 
 french_template = """You are proficient in the French language and are very knowledgeable. \

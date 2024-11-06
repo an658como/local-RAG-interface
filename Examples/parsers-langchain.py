@@ -1,10 +1,10 @@
 from langchain.prompts import PromptTemplate
 from langchain.output_parsers import DatetimeOutputParser, CommaSeparatedListOutputParser
 from pydantic import BaseModel, Field
-import SLM
+import slm
 
 # Initialize the local LLM
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 # Set up the output parsers
 parser_dateTime = DatetimeOutputParser()

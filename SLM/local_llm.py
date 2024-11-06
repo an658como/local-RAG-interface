@@ -2,7 +2,7 @@ from langchain.llms.base import LLM
 from pydantic import Field
 import requests
 
-class LocalLLM(LLM):
+class local_llm(LLM):
     endpoint_url: str = Field(..., description="URL of the local LLM server")
 
     def _call(self, prompt: str, stop=None) -> str:

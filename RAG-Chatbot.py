@@ -1,6 +1,6 @@
 # Importing the modules
 import os
-import SLM
+import slm
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.memory import ConversationBufferWindowMemory
@@ -10,14 +10,18 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.agents import Tool, initialize_agent
 
 # Initialize LocalLLM with the specified endpoint URL
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 #import serpapi
-os.environ["SERPAPI_API_KEY"] = "??"
+os.environ["SERPAPI_API_KEY"] = "YOUR_API_KEY"
 
+
+# Set the file name
+file_name = "story.pdf"
+documents_path = os.path.join("documents", file_name)
 
 # Loading the document
-loader = PyPDFLoader("3DPrinter_Manual.pdf")
+loader = PyPDFLoader(documents_path)
 mypdf = loader.load() 
 
 # Defining the splitter 

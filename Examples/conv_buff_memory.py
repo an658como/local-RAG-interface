@@ -1,22 +1,12 @@
-'''
-A concise summary of the interaction is often sufficient to
-store the context. The ConversationSummaryMemory module
-stores a summary of the interactions over time instead
-of keeping all or a limited number of past interactions.
-This method is advantageous for longer conversations,
-efficiently storing key information over time without
-overwhelming the model with excessive storage requirements.
-'''
 # importing LangChain modules
-from langchain.memory import ConversationSummaryMemory
+from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
-import SLM
+import slm
 
 # Initialize LocalLLM with the specified endpoint URL
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
-memory = ConversationSummaryMemory(llm=llm)
-
+memory = ConversationBufferMemory()
 memory.save_context({input: "Alex is a 9-year old boy."}, 
                     {"output": "Hello Alex! How can I assist you today?"})
 memory.save_context({input: "Alex likes to play football"}, 
@@ -28,4 +18,4 @@ conversation = ConversationChain(
     verbose=True #The verbose options allow us to visualize the internal workings of the model
 )
 
-print(conversation.predict(input="How old is Alex?"))
+print(conversation.predict(input="don't greet, jut tell me How old is Alex?"))

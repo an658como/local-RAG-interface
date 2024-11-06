@@ -1,8 +1,8 @@
-import SLM
+import slm
 from langchain.prompts import PromptTemplate
 
 # Initialize the local LLM
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 # Create the email template
 email_template = PromptTemplate.from_template(

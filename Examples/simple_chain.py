@@ -1,8 +1,8 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-import SLM
+import slm
 
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 # creating the prompt template
 prompt_template = PromptTemplate(

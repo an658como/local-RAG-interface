@@ -2,11 +2,12 @@ import os
 # importing LangChain modules
 from langchain.memory import ConversationBufferMemory
 from langchain.agents import AgentType, initialize_agent, load_tools
-import SLM
+import slm
 
-os.environ["SERPAPI_API_KEY"] = ""
-# Initialize LocalLLM with the specified endpoint URL
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+os.environ["SERPAPI_API_KEY"] = "YOUR_API_KEY"
+
+#Initialize LocalLLM with the specified endpoint URL
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 memory = ConversationBufferMemory(memory_key="chat_history")
 

@@ -5,13 +5,18 @@ from langchain.memory import ConversationBufferWindowMemory  # Fixed import path
 from langchain.chains import ConversationalRetrievalChain
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
-import SLM
+import os
+import slm
 
 # Initialize LocalLLM with the specified endpoint URL
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
+
+# Set the file name
+file_name = "story.pdf"
+documents_path = os.path.join("documents", file_name)
 
 # Loading the document
-loader = PyPDFLoader("story.pdf")
+loader = PyPDFLoader(documents_path)
 mypdf = loader.load() 
 
 # Defining the splitter 
