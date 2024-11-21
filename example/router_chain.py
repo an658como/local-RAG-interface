@@ -1,4 +1,4 @@
-import SLM
+import slm
 from langchain.llms.base import LLM
 from langchain.chains import LLMChain
 from langchain.prompts import ChatPromptTemplate
@@ -56,7 +56,7 @@ prompt_infos = [
 ]
 
 # Initialize Local LLM with your server endpoint
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 # Creating destination chains
 destination_chains = {}

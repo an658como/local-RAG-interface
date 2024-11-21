@@ -25,7 +25,7 @@ def chat():
 
         # Send prompt to subprocess without re-encoding, as `text=True` handles it as a string
         result = subprocess.run(
-            ["ollama", "run", "llama3.2:1b"],
+            ["ollama", "run", "llama3.2"],
             input=prompt,
             capture_output=True,
             text=True  # Ensures output is decoded to a string automatically

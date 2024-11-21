@@ -1,5 +1,5 @@
 # importing the modules
-import SLM
+import slm
 # importing the modules
 from langchain.chains import LLMChain
 
@@ -7,7 +7,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.chains import SequentialChain
 
 # defining the LLM model 
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 # defining the original input 
 biography = "He is an American author of thriller fiction, best known for his Robert Langdon series. \
           He has sold over 200 million copies of his books, which have been translated into 56 \

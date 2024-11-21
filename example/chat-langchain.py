@@ -1,8 +1,8 @@
-import SLM
+import slm
 from pydantic import BaseModel
 
 # Initialize LocalLLM instance
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
 # Define message types to replicate SystemMessage and HumanMessage behavior
 class Message(BaseModel):

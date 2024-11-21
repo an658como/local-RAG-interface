@@ -1,10 +1,10 @@
-import SLM
+import slm
 from typing import List
 from pydantic import BaseModel, Field
 from langchain.prompts import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 # Define the Author class for the output
 class Book(BaseModel):
     title: str

@@ -1,0 +1,90 @@
+# Importing the modules
+import os
+import slm
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.memory import ConversationBufferWindowMemory
+from langchain.chains import ConversationalRetrievalChain
+from langchain.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.agents import Tool, initialize_agent
+
+# Initialize LocalLLM with the specified endpoint URL
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
+
+#import serpapi
+os.environ["SERPAPI_API_KEY"] = "YOUR_API_KEY"
+
+
+# Set the file name
+file_name = "story.pdf"
+documents_path = os.path.join("documents", file_name)
+
+# Loading the document
+loader = PyPDFLoader(documents_path)
+mypdf = loader.load() 
+
+# Defining the splitter 
+document_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=300,
+    chunk_overlap=70
+)
+
+# Splitting the document into chunks
+docs = document_splitter.split_documents(mypdf)
+
+# Embedding the chunks into vector stores
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+
+# Setting the directory for storing vector data
+persist_directory = 'db'
+
+# Initialize Chroma vector store from documents
+my_database = Chroma.from_documents(
+    documents=docs,
+    embedding=embeddings,
+    persist_directory=persist_directory
+)
+
+# Defining the conversational memory
+retaining_memory = ConversationBufferWindowMemory(
+    memory_key='chat_history',
+    k=5,
+    return_messages=True
+)
+
+# Defining the conversational retrieval chain with retriever and memory
+question_answering = ConversationalRetrievalChain.from_llm(
+    llm=llm,
+    retriever=my_database.as_retriever(),
+    memory=retaining_memory
+)
+
+# defining the tool for the agent
+tools = [
+    Tool(
+        name='Knowledge Base',
+        func=question_answering.run,
+        description=(
+            'use this tool when answering questions related to the 3D printer'
+        )
+    )
+]
+
+# initializing the agent
+agent = initialize_agent(
+    agent='chat-conversational-react-description',
+    tools=tools,
+    llm=llm,
+    verbose=True,
+    max_iterations=3,
+    early_stopping_method='generate',
+    memory=retaining_memory
+)
+
+# Loop for a conversation with the AI
+while True:
+    question = input("Enter your query: ")
+    if question.lower() == 'escape': 
+        break 
+    print(agent(question))

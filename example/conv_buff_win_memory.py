@@ -1,0 +1,28 @@
+'''
+Unlike the ConversationBufferMemory, which stores 
+the entire message history, the ConversationBufferWindowMemory 
+keeps a more manageable list of the last k interactions. 
+This approach ensures the most recent k messages are maintained, 
+preventing the buffer from becoming excessively large. 
+'''
+# importing LangChain modules
+from langchain.memory import ConversationBufferWindowMemory
+from langchain.chains import ConversationChain
+import slm
+
+# Initialize LocalLLM with the specified endpoint URL
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
+
+memory = ConversationBufferWindowMemory(k=2) #you will get different answer by changing this
+memory.save_context({input: "Alex is a 9-year old boy."}, 
+                    {"output": "Hello Alex! How can I assist you today?"})
+memory.save_context({input: "Alex likes to play football"}, 
+                    {"output": "That's great to hear! "})
+
+conversation = ConversationChain(
+    llm=llm,
+    memory = memory, #the memory set’s context through the previously defined conversation memory buffer.
+    verbose=True #The verbose options allow us to visualize the internal workings of the model
+)
+
+print(conversation.predict(input="don't greet, jut tell me How old is Alex?"))

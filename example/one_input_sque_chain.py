@@ -1,11 +1,11 @@
 # importing the modules
-import SLM
+import slm
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chains import SimpleSequentialChain
 
 # defining the LLM model for the first chain
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 # creating the prompt template and the first chain
 prompt_1 = PromptTemplate(
     input_variables=["book"],

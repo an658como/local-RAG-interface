@@ -1,8 +1,8 @@
 from langchain.prompts.few_shot import FewShotPromptTemplate
 from langchain.prompts import PromptTemplate
-import SLM
+import slm
 
-llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 # Define few-shot examples with more explicit instructions
 examples = [
     {"review": "I absolutely love this product! It exceeded my expectations.", "sentiment": "Sentiment: Positive"},

@@ -32,7 +32,7 @@ Download and install [Ollama](https://ollama.com/) on your machine. This will al
 
 3. **Install Required Dependencies**:
    ```bash
-   pip install flask requests langchain pydantic
+   pip install -r requirements.txt
    ```
 
 ## Step 3: Run the Ollama Server
@@ -46,8 +46,8 @@ Download and install [Ollama](https://ollama.com/) on your machine. This will al
       text=True  # Ensures output is decoded to a string automatically
    )
    ```
-2. **Start the Server**:
-   From the Server folder, Run the following command to start the server:
+2. **Start the server**:
+   From the server folder, Run the following command to start the server:
    ```bash
    python Ollama_Server.py
    ```
@@ -55,20 +55,21 @@ Download and install [Ollama](https://ollama.com/) on your machine. This will al
    This will host a local server on `http://localhost:5001/chat`, which serves as the endpoint for querying the model.
 
 ## Step 4: Run the Python Code to Query the Model
-1. **Write Your Python Script** (e.g., `Chat.py`), or use the following template:
+1. **Write Your Python Script** (e.g., `RAG.py`), or use the following template:
 
    ```python
-   import SLM
+   import slm
 
    # Initialize LocalLLM with the specified endpoint URL
-   llm = SLM.LocalLLM(endpoint_url="http://localhost:5001/chat")
+   llm = slm.local_llm(endpoint_url="http://localhost:5001/chat")
 
    # Query the model
    response = llm._call("Tell me a joke")
    print("Response from model:", response)
    ```
+2. **enter your API key for any tools used in the Script**
 
-2. **Run the Script**:
+3. **Run the Script**:
    Execute your Python script to get a response from the model:
    ```bash
    python Chat.py
@@ -82,9 +83,3 @@ When you run the script, you should see a response printed to the terminal:
 ```plaintext
 Response from model: Why did the chicken cross the road? To get to the other side!
 ```
-
----
-
-### Additional Notes
-- If you prefer to use a `chat` method instead of `_call`, add it to the `LocalLLM` class.
-- The server setup in `Ollama_Server.py` must be running whenever you query the model.
